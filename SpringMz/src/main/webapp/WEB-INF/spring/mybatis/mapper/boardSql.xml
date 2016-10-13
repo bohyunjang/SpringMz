@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+						"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="boardSql">
+	<resultMap id="boardMap" type="com.mzdev.security.board.model.BaordModel">
+		<id property="idx" column="idx" />
+		<id property="title" column="title" />
+		<id property="content" column="content" />
+		<id property="userName" column="userName" />
+		<id property="regDatetime" column="regDatetime" />
+		<id property="cnt" column="cnt" />
+	</resultMap>
+
+	<select id="selectList" resultMap="boardMap">
+		SELECT * FROM board
+	</select>
+
+	<insert id="insert">
+		INSERT INTO board(idx,title,content,username,regdatetime,cnt)
+		VALUES(#{idx}, #{title}, #{content},#{userName},sysdate(),0)
+	</insert>
+
+	<select id="selectOne" resultMap="boardMap">
+		SELECT * FROM board WHERE idx = #{idx}
+	</select>
+
+	<select id="selectIdx" resultType="int">
+		SELECT count(idx) from board
+	</select>
+
+	<update id="update">
+		UPDATE board SET
+		username = #{username},
+		title = #{title},
+		content = #{content},
+		regdatetime = #{regdatetime}
+		WHERE idx = #{idx} LIMIT 1
+	</update>
+
+	<delete id="delete">
+		DELETE FROM board WHERE idx = #{idx}
+	</delete>
+
+	<update id="updateCnt">
+		UPDATE board SET
+		cnt = cnt+1
+		WHERE idx = #{idx} LIMIT 1
+	</update>
+
+	<select id="search" resultMap="boardMap" >
+		SELECT * FROM board
+		<where>
+			<choose>
+				<when test="searchType == 'title'">
+					title LIKE CONCAT('%', #{searchValue}, '%')
+				</when>
+				<when test="searchType == 'content'">
+					content LIKE CONCAT('%', #{searchValue}, '%')
+				</when>
+				<when test="searchType == 'username'">
+					username LIKE CONCAT('%', #{searchValue}, '%')
+				</when>
+			</choose>
+		</where>
+	</select>
+	
+</mapper>

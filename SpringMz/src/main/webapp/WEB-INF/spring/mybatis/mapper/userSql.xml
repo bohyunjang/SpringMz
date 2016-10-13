@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+						"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="userSql">
+	<resultMap id="userMap" type="com.mzdev.security.user.model.UserModel">
+		<id property="userName" column="username"/>
+		<id property="password" column="password"/>
+		<id property="nickName" column="nickname"/>
+	</resultMap>
+
+	<select id="selectUserByUserName" resultType="user"
+		parameterType="String">
+		SELECT *
+		FROM user
+		WHERE userName = #{userName}
+	</select>
+
+	<insert id="insertUser" parameterType="user">
+		INSERT INTO user(userName, password, nickName, regDate,authority)
+		VALUES (#{userName}, #{password}, #{nickName},sysdate(),"ROLE_USER")
+	</insert>
+	
+	<delete id="deleteUser" parameterType="int">
+		DELETE FROM user
+		WHERE userName = #{userName}
+	</delete>
+
+</mapper>
