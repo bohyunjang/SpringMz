@@ -32,7 +32,7 @@ import com.mzdev.security.user.repository.UserRepository;
 /**
  * Handles requests for the application home page.
  */
-@Controller
+@Controller(value="/user")
 public class UserController {
 
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
@@ -80,7 +80,19 @@ public class UserController {
 
 		return "home";
 	}
-
+	
+	
+	@RequestMapping(value="/login", method = RequestMethod.GET)
+	public String loginPage(){
+		System.out.println("move login page!!");
+		
+		return "login";
+		
+	}
+	
+	
+	
+/*
 	// 1. 로그인 페이지 요청 시 작업내용
 	// 2. ( method = RequestMethod.GET) 부분은 GET방식 요청으로만 접근 할 수 있다는 뜻
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -92,16 +104,18 @@ public class UserController {
 		if (session != null) {
 
 			Object obj = session.getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
-			System.out.println("obj :: " + obj);
-
+			System.out.println("세션값이 존재합니다.");
+			
 			if (obj != null && obj instanceof AuthenticationException) {
 				AuthenticationException excp = (AuthenticationException) obj;
 				model.addAttribute("LOGIN_EXCEPTION", excp.getMessage());
 			}
+			return new ModelAndView("home");
 		}
-		return new ModelAndView("login");
+			System.out.println("세션값이 없습니다. 로그인 페이지로 이동.");
+			return new ModelAndView("login");
 	}
-
+*/
 	// 회원가입 페이지 이동
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public ModelAndView registerPage(HttpServletRequest request, Model model) {
@@ -112,7 +126,8 @@ public class UserController {
 	// 회원가입 데이터 입력
 	@RequestMapping(value = "/register/submit", method = RequestMethod.POST)
 	public ModelAndView registerSubmit(HttpServletRequest request, Model model,
-			@RequestParam(name = "userName") String userName, @RequestParam(name = "password") String password,
+			@RequestParam(name = "userName") String userName, 
+			@RequestParam(name = "password") String password,
 			@RequestParam(name = "password_confirm") String password_confirm,
 			@RequestParam(name = "nickName") String nickName) {
 
@@ -150,7 +165,7 @@ public class UserController {
 			session.setAttribute("REGISTER_NICKNAME", nickName);
 			session.setAttribute("REGISTER_USERNAME", userName);
 
-			RedirectView rv = new RedirectView("/edu/register");
+			RedirectView rv = new RedirectView("register");
 			rv.setExposeModelAttributes(false);
 
 			return new ModelAndView(rv);
@@ -164,7 +179,7 @@ public class UserController {
 		System.out.println("password_confrim:: " + password_confirm);
 		System.out.println("nickname:: " + nickName);
 
-		RedirectView rv = new RedirectView("/edu/login");
+		RedirectView rv = new RedirectView("/login");
 		rv.setExposeModelAttributes(false);
 
 		return new ModelAndView(rv);

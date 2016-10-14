@@ -16,13 +16,16 @@ public class UserRepositoryImpl implements UserRepository{
 	@Override
 	public UserModel selectUserByUserName(String userName) {
 		// TODO Auto-generated method stub
-		return null;
+		System.out.println("UserDao.. select UserByUserName");
+		System.out.println("userName :: "+ userName);
+		return sqlSession.selectOne("userName :: ", userName);
 	}
 
 	@Override
 	public int insertUser(UserModel userModel) {
 		// TODO Auto-generated method stub
-		return 0;
+		System.out.println("UserRepository... insertUser!!");
+		return sqlSession.insert("insertUser", userModel);
 	}
 
 }

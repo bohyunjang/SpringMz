@@ -1,5 +1,6 @@
 package com.mzdev.security.board.model;
 
+
 public class BoardModel {
 	
 	int idx;

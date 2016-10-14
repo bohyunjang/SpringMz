@@ -3,11 +3,13 @@ package com.mzdev.security.board.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.mzdev.security.board.model.BoardModel;
 import com.mzdev.security.board.repository.BoardRepository;
 import com.mzdev.security.board.service.BoardService;
 
+@Service
 public class BoardServiceImpl implements BoardService{
 
 	@Autowired

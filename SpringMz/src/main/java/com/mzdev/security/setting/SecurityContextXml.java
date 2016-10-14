@@ -51,7 +51,9 @@ public class SecurityContextXml extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.authorizeRequests()
-				.antMatchers("/").authenticated()
+				//.antMatchers("/") 
+				// Home 컨트롤러가 실행될때 홈 페이지에 권한을 부여함
+				// 로그아웃 상태에서는 권한이 없기 때문에 로그인 페이지로 자동으로 넘어갔음.
 				.antMatchers("/login**").anonymous()
 				.antMatchers("/register**").anonymous()
 				.and()

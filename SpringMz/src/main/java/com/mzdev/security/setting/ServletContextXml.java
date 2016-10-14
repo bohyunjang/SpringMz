@@ -13,6 +13,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -114,7 +115,7 @@ public class ServletContextXml extends WebMvcConfigurerAdapter implements Transa
 	public InternalResourceViewResolver setInternalResourceResolver(){
 		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
 		
-		resolver.setPrefix("/WEB_INF/views/");
+		resolver.setPrefix("/WEB-INF/views/");
 		resolver.setSuffix(".jsp");
 		resolver.setViewClass(JstlView.class);
 		
@@ -125,6 +126,9 @@ public class ServletContextXml extends WebMvcConfigurerAdapter implements Transa
 	public PasswordEncoder setPasswordEncoder(){
 		
 		PasswordEncoder encoder = new BCryptPasswordEncoder();
+		//TODO change later.		
+//		new ShaPasswordEncoder()
+		
 		
 		return encoder;
 	}

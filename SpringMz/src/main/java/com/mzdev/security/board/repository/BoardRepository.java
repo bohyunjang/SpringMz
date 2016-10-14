@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.mzdev.security.board.model.BoardModel;
 
+
 public interface BoardRepository {
 	
 	List<BoardModel> selectList();
